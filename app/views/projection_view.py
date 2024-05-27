@@ -217,7 +217,6 @@ class ImageArea(pg.PlotItem):
 
 class MetadataItem(pg.LabelItem):
     """
-    ver 1.0
     Item that is displayed in plot as a metadata text.
     """
     def __init__(self, **args):
@@ -228,35 +227,6 @@ class MetadataItem(pg.LabelItem):
         text = separator.join([f'{key}: {value}' for key, value in metadata_dict.items()])
         self.setText(text, color=color, size=size)
 
-    def update(self, single_metadata: tuple, color, size, separator='<br>'):
-        """Add single entry to metadata text."""
-        md_key, md_value = single_metadata
-        text = self.text
-        text += f"{separator} {md_key}: {md_value}"
-        self.setText(text, color=color, size=size)
-
     def clear(self):
         """Set metadata text as empty string."""
         self.setText("")
-
-    def replace_line(self, line_number, new_line):
-        """Replace line specified by his number in metadata dict and set new line."""
-        text: str = self.text
-        lines = text.split("<br>")
-        lines[line_number] = new_line
-        "<br>".join([line for line in lines])
-
-    def r_align(self):
-        """Set text right alignment in label. Not working in ver 1.0"""
-        text: str = self.text
-        # print(text)
-        lines = text.split("<br>")
-        max_length = max(len(line) for line in lines)
-        # print(lines)
-        aligned_lines = [line.rjust(max_length) for line in lines]
-        result = "<br>".join(aligned_lines)
-        result = result.replace(' ', '&nbsp;&nbsp;')
-        # item: QtWidgets.QGraphicsTextItem = self.item
-        # item.setFont(QtGui.QFont('Courier New'))
-        # item.setHtml("<div style=\"color: blue\"></div>")
-        self.setText(result)
